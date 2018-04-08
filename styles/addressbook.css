@@ -1,0 +1,181 @@
+body {
+    margin:0px;
+}
+
+.container {
+    position:relative;
+    width:auto;
+    margin:auto;
+}
+
+.title {
+    padding:10px;
+    border-bottom:2px solid;
+    background:rgb(250,250,250);
+}
+
+.title h1 {
+    margin:0px;
+    font-family:sans-serif;
+    font-weight:normal;
+    text-shadow:0px 0px 1px rgba(0,0,0,0.4);
+}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.quickadd {
+    padding:10px;
+    border-bottom:1px solid;
+}
+
+#QuickAdd, #QuickAddOrg {
+    padding:8px;
+    background:rgb(250,250,250);
+    border:1px dashed;
+    text-shadow:0px 0px 1px;
+}
+
+.quickaddForm, .quickaddorgForm {
+    height:440px;
+    padding:10px;
+    background:rgb(240,240,240);
+    overflow:hidden;
+    display:none;
+}
+
+.quickaddForm label, .quickaddorgForm label {
+    position:relative;
+    display:block;
+    width:300px;
+    height:10px;
+    float:left;
+    font-family:sans-serif;
+    font-size:12px;
+    padding:10px;
+    font-weight:bold;
+}
+
+.quickaddForm input,textarea, .quickaddorgForm input,textarea  {
+    border:1px dashed;
+    width:50%;
+    padding:10px;
+    font-weight:bold;
+    border-radius:5px;
+    box-shadow:inset 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+#Add,#Cancel, #AddOrg, #CancelOrg {
+    padding:10px;
+    margin:20px;
+    position:relative;
+    left:300px;
+    border:1px dashed;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+.entry {
+    background:rgb(230,230,230);
+    width:auto;
+    height:40px;
+    border-bottom: 1px solid white;
+}
+
+
+.entry .name, .entry .orgname {
+    width:130px;
+    float:left;
+    padding:10px;
+    overflow:scroll;
+}
+
+.entry .org {
+    width:130px;
+    float:left;
+    padding:10px;
+    overflow:scroll;
+}
+
+.entry .email, .entry .orgemail {
+    width:200px;
+    float:left;
+    padding:10px;
+    overflow:scroll;
+}
+
+
+.entry .phone, .entry .orgphone {
+    width:100px;
+    float:left;
+    padding:10px;
+}
+
+.entry .address, .entry .orgaddress {
+    width:200px;
+    float:left;
+    padding:10px;
+    overflow:scroll;
+}
+
+.entry .postcode, .entry .orgpostcode {
+    width:60px;
+    float:left;
+    padding:10px;
+}
+
+.entry .del, .entry .orgdel {
+    width:30px;
+    float:right;
+    padding:10px;
+    padding-right: 20px;
+}
+
+.entry p {
+    margin:0px;
+    font-family:sans-serif;
+    font-size:12px;
+    text-shadow:0px 0px 1px rgba(0,0,0,0.4);
+}
+
+.entry .del a, .entry .orgdel a {
+    font-family:sans-serif;
+    color:#FFF;
+    font-size:12px;
+    padding:5px;
+    background:rgb(255,100,100);
+    border-radius:8px;
+    text-decoration:none;
+}

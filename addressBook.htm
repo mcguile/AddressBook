@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AddressBook</title>
+	<link rel="stylesheet" href="styles/addressbook.css">
+	<script src="scripts/addressbook.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="title">
+			<h1>Address Book</h1>
+		</div>
+		<div class="tab">
+  		<button class="tablinks" onclick="openTab(event, 'Organisations')">Organisations</button>
+  		<button class="tablinks" onclick="openTab(event, 'People')">People</button>
+		</div>
+		<div class="quickadd"><button id="QuickAddOrg">+ Add Organisation</button><button id="QuickAdd">+ Add Person</button></div>
+		<div class="quickaddorgForm">
+			<label for="orgname">Organisation Name</label><input type="text" id="orgname" class="formFields">
+			<label for="orgphone">Phone</label><input type="text" id="orgphone" class="formFields">
+			<label for="orgaddress">Address</label><textarea name="address" id="orgaddress" cols="30" rows="10" class="formFields"></textarea>
+			<label for="orgpostcode">Postcode</label><input type="text" id="orgpostcode" class="formFields">
+			<label for="orgemail">E-Mail</label><input type="text" id="orgemail" class="formFields">
+			<br><br>
+			<button id="AddOrg">Add Now</button>
+			<button id="CancelOrg">Cancel</button>
+		</div>
+		<div class="quickaddForm">
+			<label for="fullname">Name</label><input type="text" id="fullname" class="formFields">
+			<label for="org">Organisation</label><input type="text" id="org" class="formFields">
+			<label for="phone">Phone</label><input type="text" id="phone" class="formFields">
+			<label for="address">Address</label><textarea name="address" id="address" cols="30" rows="10" class="formFields"></textarea>
+			<label for="postcode">Postcode</label><input type="text" id="postcode" class="formFields">
+			<label for="email">E-Mail</label><input type="text" id="email" class="formFields">
+			<br><br>
+			<button id="Add">Add Now</button>
+			<button id="Cancel">Cancel</button>
+		</div>
+		<div id="Organisations" class="tabcontent">
+			<div class="orgbook">
+			</div>
+		</div>
+		<div id="People" class="tabcontent">
+			<div class="peoplebook">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
