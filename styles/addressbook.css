@@ -4,7 +4,7 @@ body {
 
 .container {
     position:relative;
-    width:auto;
+    width:1000px;
     margin:auto;
 }
 
@@ -65,7 +65,7 @@ body {
     padding:8px;
     background:rgb(250,250,250);
     border:1px dashed;
-    text-shadow:0px 0px 1px;
+    font-style: oblique;
 }
 
 .quickaddForm, .quickaddorgForm {
@@ -97,7 +97,7 @@ body {
     box-shadow:inset 0px 0px 10px rgba(0,0,0,0.2);
 }
 
-#Add,#Cancel, #AddOrg, #CancelOrg {
+#Add,#Update,#Cancel,#AddOrg,#UpdateOrg,#CancelOrg {
     padding:10px;
     margin:20px;
     position:relative;
@@ -130,7 +130,7 @@ body {
 }
 
 .entry .email, .entry .orgemail {
-    width:200px;
+    width:100px;
     float:left;
     padding:10px;
     overflow:scroll;
@@ -144,7 +144,7 @@ body {
 }
 
 .entry .address, .entry .orgaddress {
-    width:200px;
+    width:160px;
     float:left;
     padding:10px;
     overflow:scroll;
@@ -156,7 +156,7 @@ body {
     padding:10px;
 }
 
-.entry .del, .entry .orgdel {
+.entry .del, .entry .orgdel, .entry .orgupdate, .entry .update {
     width:30px;
     float:right;
     padding:10px;
@@ -170,6 +170,15 @@ body {
     text-shadow:0px 0px 1px rgba(0,0,0,0.4);
 }
 
+.entry .update a, .entry .orgupdate a {
+  font-family:sans-serif;
+  color:#FFF;
+  font-size:12px;
+  padding:5px;
+  background:rgb(100,200,100);
+  border-radius:8px;
+  text-decoration:none;
+}
 .entry .del a, .entry .orgdel a {
     font-family:sans-serif;
     color:#FFF;
