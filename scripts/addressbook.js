@@ -1,4 +1,11 @@
 window.onload = function(){
+	// Storage and temp params
+	var addressBook = [];
+	var orgBook = [];
+	var toBeUpdated = "";
+	var orgObjToBeUpdated = "";
+	var orgName = "";
+
 	// Buttons
 	var quickAddBtn = document.getElementById('QuickAdd');
 	var quickAddOrgBtn = document.getElementById('QuickAddOrg');
@@ -57,7 +64,10 @@ window.onload = function(){
 		addToOrgBook(false);
 	});
 	UpdateBtn.addEventListener("click", function(){
-		addToBook(true);
+			addToBook(true)
+		if (orgName != ""){
+			showOrgPeople(orgName);
+		}
 	});
 	UpdateOrgBtn.addEventListener("click", function(){
 		addToOrgBook(true);
@@ -66,13 +76,6 @@ window.onload = function(){
 	orgBookDiv.addEventListener("click", deletedUpdateView);
 	viewEmployeesDiv.addEventListener("click", deletedUpdateView);
 
-	// Storage and temp params;
-	var addressBook = [];
-	var orgBook = [];
-	var toBeUpdated = "";
-	var orgToBeUpdated = "";
-
-	//localStorage['addressBook'] = '[{"fullname":"Sachin B","email":"sachin@frameboxx.in","phone":"93828292","address":"something","postcode":"Chandigarh"}]';
 	function setupStorage(){
 		if(localStorage['addressBook'] === undefined){
 			localStorage['addressBook'] = '';
@@ -195,7 +198,8 @@ window.onload = function(){
 			AddOrgBtn.style.display = "none";
 			UpdateOrgBtn.style.display = "inline";
 		} else if (e.target.classList.contains('orgviewbutton')){
-			showOrgPeople(orgBook[remID].orgName);
+			orgName = orgBook[remID].orgName;
+			showOrgPeople(orgName);
 		} else if (e.target.classList.contains('backbutton')){
 			showOrgBook();
 		}
@@ -274,8 +278,11 @@ window.onload = function(){
 				peoplestr += '</div>';
 				viewEmployeesDiv.innerHTML += peoplestr;
 			}
+			quickAddFormDiv.style.display = "none";
+			clearForm(true);
 		}
 		viewEmployeesDiv.style.display = "block";
+		UpdateBtn.style.display = "none";
 	}
 
 	setupStorage();
