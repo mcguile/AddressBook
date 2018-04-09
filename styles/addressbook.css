@@ -4,7 +4,7 @@ body {
 
 .container {
     position:relative;
-    width:1000px;
+    width:1366px;
     margin:auto;
 }
 
@@ -76,12 +76,15 @@ body {
     display:none;
 }
 
+.quickaddForm label,input,textarea, .quickaddorgForm label,input,textarea {
+  float:none;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .quickaddForm label, .quickaddorgForm label {
-    position:relative;
-    display:block;
     width:300px;
     height:10px;
-    float:left;
     font-family:sans-serif;
     font-size:12px;
     padding:10px;
@@ -90,7 +93,7 @@ body {
 
 .quickaddForm input,textarea, .quickaddorgForm input,textarea  {
     border:1px dashed;
-    width:50%;
+    width:70%;
     padding:10px;
     font-weight:bold;
     border-radius:5px;
@@ -101,7 +104,6 @@ body {
     padding:10px;
     margin:20px;
     position:relative;
-    left:300px;
     border:1px dashed;
     border-radius:5px;
     font-weight:bold;
@@ -116,50 +118,71 @@ body {
 
 
 .entry .name, .entry .orgname {
-    width:130px;
+    width:150px;
     float:left;
-    padding:10px;
-    overflow:scroll;
+    padding:11px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: scroll;
+    white-space: nowrap;
 }
 
 .entry .org {
-    width:130px;
+    width:150px;
     float:left;
-    padding:10px;
-    overflow:scroll;
+    padding:11px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: scroll;
+    white-space: nowrap;
 }
 
 .entry .email, .entry .orgemail {
-    width:100px;
+    width:150px;
     float:left;
-    padding:10px;
-    overflow:scroll;
+    padding:11px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: scroll;
+    white-space: nowrap;
 }
 
 
 .entry .phone, .entry .orgphone {
     width:100px;
     float:left;
-    padding:10px;
+    padding:11px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: scroll;
+    white-space: nowrap;
 }
 
 .entry .address, .entry .orgaddress {
-    width:160px;
+    width:180px;
     float:left;
-    padding:10px;
-    overflow:scroll;
+    padding:11px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: scroll;
+    white-space: nowrap;
 }
 
 .entry .postcode, .entry .orgpostcode {
     width:60px;
     float:left;
-    padding:10px;
+    padding:11px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: scroll;
+    white-space: nowrap;
 }
 
-.entry .del, .entry .orgdel, .entry .orgupdate, .entry .update {
+.entry .del, .entry .orgdel, .entry .orgupdate, .entry .update, .entry .orgview {
     width:30px;
     float:right;
-    padding:10px;
+    padding:11px;
+    padding-left: 20px;
     padding-right: 20px;
 }
 
@@ -169,7 +192,15 @@ body {
     font-size:12px;
     text-shadow:0px 0px 1px rgba(0,0,0,0.4);
 }
-
+.entry .orgview a {
+  font-family:sans-serif;
+  color:#FFF;
+  font-size:12px;
+  padding:5px;
+  background:rgb(100,100,200);
+  border-radius:8px;
+  text-decoration:none;
+}
 .entry .update a, .entry .orgupdate a {
   font-family:sans-serif;
   color:#FFF;

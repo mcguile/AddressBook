@@ -2,8 +2,6 @@ window.onload = function(){
 	// Buttons
 	var quickAddBtn = document.getElementById('QuickAdd');
 	var quickAddOrgBtn = document.getElementById('QuickAddOrg');
-	var quickAddFormDiv = document.querySelector('.quickaddForm');
-	var quickAddOrgFormDiv = document.querySelector('.quickaddorgForm');
 	var cancelBtn = document.getElementById('Cancel');
 	var cancelOrgBtn = document.getElementById('CancelOrg');
 	var AddBtn = document.getElementById('Add');
@@ -24,8 +22,11 @@ window.onload = function(){
 	var orgPostcode = document.getElementById('orgpostcode');
 	var orgEmail = document.getElementById('orgemail');
 	// Divs etc.
+	var quickAddFormDiv = document.querySelector('.quickaddForm');
+	var quickAddOrgFormDiv = document.querySelector('.quickaddorgForm');
 	var addressBookDiv = document.querySelector('.peoplebook');
 	var orgBookDiv = document.querySelector('.orgbook');
+	var viewEmployeesDiv = document.querySelector('.viewEmployees');
 
 	quickAddBtn.addEventListener("click", function(){
 		// display the form div
@@ -61,8 +62,9 @@ window.onload = function(){
 	UpdateOrgBtn.addEventListener("click", function(){
 		addToOrgBook(true);
 	});
-	addressBookDiv.addEventListener("click", updateOrRemoveEntry);
-	orgBookDiv.addEventListener("click", updateOrRemoveEntry);
+	addressBookDiv.addEventListener("click", deletedUpdateView);
+	orgBookDiv.addEventListener("click", deletedUpdateView);
+	viewEmployeesDiv.addEventListener("click", deletedUpdateView);
 
 	// Storage and temp params;
 	var addressBook = [];
@@ -153,7 +155,7 @@ window.onload = function(){
 		}
 	}
 
-	function updateOrRemoveEntry(e){
+	function deletedUpdateView(e){
 		// Remove an entry from the addressbook
 		var remID = e.target.getAttribute('data-id');
 		if (e.target.classList.contains('delbutton')){
@@ -192,6 +194,10 @@ window.onload = function(){
 			}
 			AddOrgBtn.style.display = "none";
 			UpdateOrgBtn.style.display = "inline";
+		} else if (e.target.classList.contains('orgviewbutton')){
+			showOrgPeople(orgBook[remID].orgName);
+		} else if (e.target.classList.contains('backbutton')){
+			showOrgBook();
 		}
 	}
 
@@ -211,7 +217,6 @@ window.onload = function(){
 		// Loop over the array addressBook and insert into the page
 		addressBookDiv.innerHTML = '';
 		for(var n in addressBook){
-			var orgst = '<div class="entry">';
 			var peoplestr = '<div class="entry">';
 			peoplestr += '<div class="name"><p>' + addressBook[n].fullname + '</p></div>';
 			peoplestr += '<div class="org"><p>' + addressBook[n].organisation + '</p></div>';
@@ -238,13 +243,41 @@ window.onload = function(){
 			orgstr += '<div class="orgaddress"><p>' + orgBook[n].orgAddress + '</p></div>';
 			orgstr += '<div class="orgpostcode"><p>' + orgBook[n].orgPostcode + '</p></div>';
 			orgstr += '<div class="orgemail"><p>' + orgBook[n].orgEmail + '</p></div>';
+			orgstr += '<div class="orgview"><a href="#" class="orgviewbutton" data-id="' + n + '">View</a></div>';
 			orgstr += '<div class="orgupdate"><a href="#" class="orgupdatebutton" data-id="' + n + '">Update</a></div>';
 			orgstr += '<div class="orgdel"><a href="#" class="orgdelbutton" data-id="' + n + '">Delete</a></div>';
 			orgstr += '</div>';
 			orgBookDiv.innerHTML += orgstr;
 		}
+		viewEmployeesDiv.style.display = "none";
+		orgBookDiv.style.display = "block";
 		UpdateOrgBtn.style.display = "none";
 	}
+
+	function showOrgPeople(orgName){
+		orgBookDiv.style.display = "none";
+		addressBook = JSON.parse(localStorage['addressBook']);
+		// Loop over the array addressBook and insert into the page
+		viewEmployeesDiv.innerHTML = '';
+		viewEmployeesDiv.innerHTML += '<div class="back"><a href="#" class="backbutton" data-id="' + n + '">Back</a></div>';
+		for(var n in addressBook){
+			if (addressBook[n].organisation == orgName) {
+				var peoplestr = '<div class="entry">';
+				peoplestr += '<div class="name"><p>' + addressBook[n].fullname + '</p></div>';
+				peoplestr += '<div class="org"><p>' + addressBook[n].organisation + '</p></div>';
+				peoplestr += '<div class="email"><p>' + addressBook[n].email + '</p></div>';
+				peoplestr += '<div class="phone"><p>' + addressBook[n].phone + '</p></div>';
+				peoplestr += '<div class="address"><p>' + addressBook[n].address + '</p></div>';
+				peoplestr += '<div class="postcode"><p>' + addressBook[n].postcode + '</p></div>';
+				peoplestr += '<div class="update"><a href="#" class="updatebutton" data-id="' + n + '">Update</a></div>';
+				peoplestr += '<div class="del"><a href="#" class="delbutton" data-id="' + n + '">Delete</a></div>';
+				peoplestr += '</div>';
+				viewEmployeesDiv.innerHTML += peoplestr;
+			}
+		}
+		viewEmployeesDiv.style.display = "block";
+	}
+
 	setupStorage();
 	showAddressBook();
 	showOrgBook();
