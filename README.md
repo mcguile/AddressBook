@@ -10,4 +10,6 @@ Assumptions made:
 3. A person cannot be added without their organisation existing in the database.
 4. Deleting an organisation does not delete people who work there - nulls their organisation field.
 
-To run: download all files and execute adressbook.htm in a browser.
+To run: 
+1. Download all files
+2. Execute adressBook.htm in a browser.
