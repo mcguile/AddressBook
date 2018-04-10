@@ -7,14 +7,15 @@ window.onload = function(){
 	var orgName = "";
 
 	// Buttons
-	var quickAddBtn = document.getElementById('QuickAdd');
-	var quickAddOrgBtn = document.getElementById('QuickAddOrg');
+	var quickaddBtn = document.getElementById('QuickAdd');
+	var quickaddOrgBtn = document.getElementById('QuickAddOrg');
 	var cancelBtn = document.getElementById('Cancel');
 	var cancelOrgBtn = document.getElementById('CancelOrg');
-	var AddBtn = document.getElementById('Add');
-	var AddOrgBtn = document.getElementById('AddOrg');
-	var UpdateBtn = document.getElementById('Update');
-	var UpdateOrgBtn = document.getElementById('UpdateOrg');
+	var addBtn = document.getElementById('Add');
+	var addOrgBtn = document.getElementById('AddOrg');
+	var updateBtn = document.getElementById('Update');
+	var updateOrgBtn = document.getElementById('UpdateOrg');
+
 	// People Form Fields
 	var fullname = document.getElementById('fullname');
 	var organisation = document.getElementById('org');
@@ -22,12 +23,14 @@ window.onload = function(){
 	var address = document.getElementById('address');
 	var postcode = document.getElementById('postcode');
 	var email = document.getElementById('email');
+
 	// Organisation Form Fields
 	var orgName = document.getElementById('orgname');
 	var orgPhone = document.getElementById('orgphone');
 	var orgAddress = document.getElementById('orgaddress');
 	var orgPostcode = document.getElementById('orgpostcode');
 	var orgEmail = document.getElementById('orgemail');
+
 	// Divs etc.
 	var quickAddFormDiv = document.querySelector('.quickaddForm');
 	var quickAddOrgFormDiv = document.querySelector('.quickaddorgForm');
@@ -35,47 +38,49 @@ window.onload = function(){
 	var orgBookDiv = document.querySelector('.orgbook');
 	var viewEmployeesDiv = document.querySelector('.viewEmployees');
 
-	quickAddBtn.addEventListener("click", function(){
+	// Listeners
+	quickaddBtn.addEventListener("click", function(){
 		// display the form div
 		quickAddOrgFormDiv.style.display = "none";
 		quickAddFormDiv.style.display = "block";
-		AddBtn.style.display = "inline";
-		UpdateBtn.style.display = "none";
+		addBtn.style.display = "inline";
+		updateBtn.style.display = "none";
 	});
-
-	quickAddOrgBtn.addEventListener("click", function(){
+	quickaddOrgBtn.addEventListener("click", function(){
 		// display the form div
 		quickAddFormDiv.style.display = "none";
 		quickAddOrgFormDiv.style.display = "block";
-		AddOrgBtn.style.display = "inline";
-		UpdateOrgBtn.style.display = "none";
+		addOrgBtn.style.display = "inline";
+		updateOrgBtn.style.display = "none";
 	});
-
 	cancelBtn.addEventListener("click", function(){
 		quickAddFormDiv.style.display = "none";
 	});
 	cancelOrgBtn.addEventListener("click", function(){
 		quickAddOrgFormDiv.style.display = "none";
 	});
-	AddBtn.addEventListener("click", function(){
+	addBtn.addEventListener("click", function(){
 		addToBook(false);
 	});
-	AddOrgBtn.addEventListener("click", function(){
+	addOrgBtn.addEventListener("click", function(){
 		addToOrgBook(false);
 	});
-	UpdateBtn.addEventListener("click", function(){
+	updateBtn.addEventListener("click", function(){
 			addToBook(true)
 		if (orgName != ""){
 			showOrgPeople(orgName);
+			orgName = "";
 		}
 	});
-	UpdateOrgBtn.addEventListener("click", function(){
+	updateOrgBtn.addEventListener("click", function(){
 		addToOrgBook(true);
 	});
-	addressBookDiv.addEventListener("click", deletedUpdateView);
-	orgBookDiv.addEventListener("click", deletedUpdateView);
-	viewEmployeesDiv.addEventListener("click", deletedUpdateView);
+	addressBookDiv.addEventListener("click", entryBtnActions);
+	orgBookDiv.addEventListener("click", entryBtnActions);
+	viewEmployeesDiv.addEventListener("click", entryBtnActions);
 
+	// Functions
+	// Create arrays if they do not already exist
 	function setupStorage(){
 		if(localStorage['addressBook'] === undefined){
 			localStorage['addressBook'] = '';
@@ -85,6 +90,7 @@ window.onload = function(){
 		}
 	}
 
+	// Two JSON structures: one for people and one for organisations
 	function jsonStructure(fullname,org,phone,address,postcode,email){
 		this.fullname = fullname;
 		this.organisation = org;
@@ -102,8 +108,10 @@ window.onload = function(){
 		this.orgEmail = email;
 	}
 
+	// Add a person to the address book. Update existing person if update == true
 	function addToBook(update){
 		var isNotNull = fullname.value!='' && organisation.value!='' && phone.value!='' && address.value!='' && postcode.value!='' && email.value!='';
+		// check if any form fields are null
 		if(isNotNull){
 			// check if organisation entered exists
 			// if not, ask whether they would like to create it
@@ -117,12 +125,13 @@ window.onload = function(){
 			}
 			if (exists) {
 				if (update) {
+					// if updating, remove old contact
 					var index = addressBook.indexOf(toBeUpdated);
 					if (index !== -1){
 						addressBook.splice(index,1);
 					}
 				}
-				// format the input into a valid JSON structure
+				// format the input into a valid JSON structure and add to storage
 				var obj = new jsonStructure(fullname.value,organisation.value,phone.value,address.value,postcode.value,email.value);
 				addressBook.push(obj);
 				localStorage['addressBook'] = JSON.stringify(addressBook);
@@ -137,16 +146,19 @@ window.onload = function(){
 		}
 	}
 
+	// Add an organisation to the organisation book. Update a contact if update == true
 	function addToOrgBook(update){
 		var isNotNull = orgName.value!='' && orgPhone.value!='' && orgAddress.value!='' && orgPostcode.value!='' && orgEmail.value!='';
+		// check if all form fields are completed
 		if(isNotNull){
+			// check if updating existing contact and remove it
 			if (update) {
 				var index = orgBook.indexOf(orgToBeUpdated);
 				if (index !== -1){
 					orgBook.splice(index,1);
 				}
 			}
-			// format the input into a valid JSON structure
+			// format the input into a valid JSON structure and add to storage
 			var obj = new orgJsonStructure(orgName.value,orgPhone.value,orgAddress.value,orgPostcode.value,orgEmail.value);
 			orgBook.push(obj);
 			localStorage['orgBook'] = JSON.stringify(orgBook);
@@ -158,17 +170,22 @@ window.onload = function(){
 		}
 	}
 
-	function deletedUpdateView(e){
-		// Remove an entry from the addressbook
+	// Carry out actions of updating a contacat, deleting a contact,
+	// or viewing an organisation's employees
+	function entryBtnActions(e){
+		// Get ID of entry
 		var remID = e.target.getAttribute('data-id');
+		// Remove an entry from the addressbook
 		if (e.target.classList.contains('delbutton')){
 			addressBook.splice(remID,1);
 			localStorage['addressBook'] = JSON.stringify(addressBook);
 			showAddressBook();
+		// Remove an entry from the organisation book
 		} else if (e.target.classList.contains('orgdelbutton')){
 			orgBook.splice(remID,1);
 			localStorage['orgBook'] = JSON.stringify(orgBook);
 			showOrgBook();
+		// Update an existing person
 		} else if (e.target.classList.contains('updatebutton')){
 			quickAddOrgFormDiv.style.display = "none";
 			quickAddFormDiv.style.display = "block";
@@ -181,8 +198,9 @@ window.onload = function(){
 					i++;
     		}
 			}
-			AddBtn.style.display = "none";
-			UpdateBtn.style.display = "inline";
+			addBtn.style.display = "none";
+			updateBtn.style.display = "inline";
+		// Update an existing organisation
 		} else if (e.target.classList.contains('orgupdatebutton')){
 			quickAddOrgFormDiv.style.display = "block";
 			quickAddFormDiv.style.display = "none";
@@ -195,16 +213,19 @@ window.onload = function(){
 					i++;
 				}
 			}
-			AddOrgBtn.style.display = "none";
-			UpdateOrgBtn.style.display = "inline";
+			addOrgBtn.style.display = "none";
+			updateOrgBtn.style.display = "inline";
+		// View employees of an organisation
 		} else if (e.target.classList.contains('orgviewbutton')){
 			orgName = orgBook[remID].orgName;
 			showOrgPeople(orgName);
+		// Go back to organisations after viewing employees
 		} else if (e.target.classList.contains('backbutton')){
 			showOrgBook();
 		}
 	}
 
+	// Clear all form fields that are open
 	function clearForm(peopleForm){
 		if (peopleForm){
 			var formFields = document.querySelectorAll('.formFields');
@@ -216,6 +237,7 @@ window.onload = function(){
 		}
 	}
 
+	// Show the people address book by looping through addressBook array
 	function showAddressBook(){
 		addressBook = JSON.parse(localStorage['addressBook']);
 		// Loop over the array addressBook and insert into the page
@@ -233,9 +255,10 @@ window.onload = function(){
 			peoplestr += '</div>';
 			addressBookDiv.innerHTML += peoplestr;
 		}
-		UpdateBtn.style.display = "none";
+		updateBtn.style.display = "none";
 	}
 
+	// Show the organisation book by looping through the orgBook array
 	function showOrgBook(){
 		orgBook = JSON.parse(localStorage['orgBook']);
 		// Loop over the array addressBook and insert into the page
@@ -255,9 +278,10 @@ window.onload = function(){
 		}
 		viewEmployeesDiv.style.display = "none";
 		orgBookDiv.style.display = "block";
-		UpdateOrgBtn.style.display = "none";
+		updateOrgBtn.style.display = "none";
 	}
 
+	// Show only employees from a selected organisation
 	function showOrgPeople(orgName){
 		orgBookDiv.style.display = "none";
 		addressBook = JSON.parse(localStorage['addressBook']);
@@ -282,14 +306,16 @@ window.onload = function(){
 			clearForm(true);
 		}
 		viewEmployeesDiv.style.display = "block";
-		UpdateBtn.style.display = "none";
+		updateBtn.style.display = "none";
 	}
 
+	// ONLOAD setup
 	setupStorage();
 	showAddressBook();
 	showOrgBook();
 }
 
+// Tab switcher
 function openTab(evt, tabName){
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
