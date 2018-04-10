@@ -8,9 +8,16 @@ Assumptions made:
 1. All fields must be filled to add a person or organisation.
 2. Entries do not need to be unique.
 3. A person cannot be added without their organisation existing in the database.
-4. Deleting an organisation does not delete people who work there - nulls their organisation field.
+4. Deleting an organisation does not delete people who worked there.
 5. There are no limits set on data entry size per field.
+6. All data is case-sensitive.
 
 To run: 
 1. Download all files
 2. Execute adressBook.htm in a browser.
+
+Possible updates: 
+1. Autocomplete organisation field
+2. Search for organisations or people
+3. Sort alphabetically
+4. Verification for updating/deleting
