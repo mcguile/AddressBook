@@ -16,6 +16,8 @@ To run:
 1. Download all files
 2. Execute adressBook.htm in a browser.
 
+Two tabs are available: organisation - lists all organisations; or people - lists all people from all organisations. If a list of employees from one organisation is required, find the organisation then click view.
+
 Possible updates: 
 1. Autocomplete organisation field
 2. Search for organisations or people
