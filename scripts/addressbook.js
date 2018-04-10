@@ -261,7 +261,7 @@ window.onload = function(){
 	// Show the organisation book by looping through the orgBook array
 	function showOrgBook(){
 		orgBook = JSON.parse(localStorage['orgBook']);
-		// Loop over the array addressBook and insert into the page
+		// Loop over the array orgBook and insert into the page
 		orgBookDiv.innerHTML = '';
 		for(var n in orgBook){
 			var orgstr = '<div class="entry">';
@@ -289,6 +289,7 @@ window.onload = function(){
 		viewEmployeesDiv.innerHTML = '';
 		viewEmployeesDiv.innerHTML += '<div class="back"><a href="#" class="backbutton" data-id="' + n + '">Back</a></div>';
 		for(var n in addressBook){
+			// only insert those that are from the selected organisation
 			if (addressBook[n].organisation == orgName) {
 				var peoplestr = '<div class="entry">';
 				peoplestr += '<div class="name"><p>' + addressBook[n].fullname + '</p></div>';
